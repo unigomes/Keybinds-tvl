@@ -1,0 +1,170 @@
+-- Default password
+local correctPassword = "555824606"
+
+-- Create login screen
+local LoginScreen = Instance.new("ScreenGui")
+local LoginFrame = Instance.new("Frame")
+local PasswordBox = Instance.new("TextBox")
+local LoginButton = Instance.new("TextButton")
+local TitleLabel = Instance.new("TextLabel")
+local UICornerLoginFrame = Instance.new("UICorner")
+
+-- This must be added to the player's PlayerGui to display the login screen
+LoginScreen.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- LoginFrame setup
+LoginFrame.Parent = LoginScreen
+LoginFrame.Size = UDim2.new(0, 400, 0, 250)  -- Increased the size of the frame
+LoginFrame.Position = UDim2.new(0.5, -200, 0.5, -125)  -- Adjusted position to center better
+LoginFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)  -- Dark grey color
+LoginFrame.Active = true
+LoginFrame.Draggable = true
+
+UICornerLoginFrame.Parent = LoginFrame
+UICornerLoginFrame.CornerRadius = UDim.new(0, 18)  -- Rounded corners
+
+-- Title Label setup (slightly more elegant text)
+TitleLabel.Parent = LoginFrame
+TitleLabel.Size = UDim2.new(1, 0, 0, 50)
+TitleLabel.Position = UDim2.new(0, 0, 0, 20)
+TitleLabel.Text = "Enter Password"
+TitleLabel.TextScaled = true
+TitleLabel.Font = Enum.Font.GothamBold
+TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White color for the title
+TitleLabel.BackgroundTransparency = 1
+
+-- Password Box setup
+PasswordBox.Parent = LoginFrame
+PasswordBox.Size = UDim2.new(1, -40, 0, 45)  -- Adjusted the size to fit better
+PasswordBox.Position = UDim2.new(0, 20, 0, 80)
+PasswordBox.PlaceholderText = "Enter password"
+PasswordBox.Font = Enum.Font.Gotham
+PasswordBox.TextScaled = true
+PasswordBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)  -- Dark grey color
+PasswordBox.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White text
+
+local UICornerTextBox = Instance.new("UICorner")
+UICornerTextBox.Parent = PasswordBox
+UICornerTextBox.CornerRadius = UDim.new(0, 15)  -- Rounded corners
+
+-- Login Button setup (rounded and elegant look)
+LoginButton.Parent = LoginFrame
+LoginButton.Size = UDim2.new(1, -40, 0, 50)
+LoginButton.Position = UDim2.new(0, 20, 0, 150)
+LoginButton.Text = "Login"
+LoginButton.TextScaled = true
+LoginButton.Font = Enum.Font.GothamBold
+LoginButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)  -- Very dark grey for buttons
+LoginButton.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White text
+
+local UICornerLoginButton = Instance.new("UICorner")
+UICornerLoginButton.Parent = LoginButton
+UICornerLoginButton.CornerRadius = UDim.new(0, 20)  -- Rounded corners for button
+
+-- Additional corner effects for the login frame
+local UICornerOuter = Instance.new("UICorner")
+UICornerOuter.Parent = LoginFrame
+UICornerOuter.CornerRadius = UDim.new(0, 20)  -- Elegant outer frame rounded corners
+
+-- Check password and execute GUI
+LoginButton.MouseButton1Click:Connect(function()
+    if PasswordBox.Text == correctPassword then
+        -- If password is correct, destroy login screen and execute main GUI
+        LoginScreen:Destroy()
+
+        -- Start the main Keybinds GUI
+        local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/nixckk/UI-Library/refs/heads/main/Rayfield'))()
+        local Window = Rayfield:CreateWindow({
+            Name = "Spell Keybind GUI -- Created by Uni",  -- Added the creator's sign next to the title
+            LoadingTitle = "Loading Spells...",
+            LoadingSubtitle = "Customizable",
+            DisableRayfieldPrompts = false,
+            SizeX = 1000,  -- Make the GUI wider horizontally to fit multiple tabs
+            Theme = {
+                Primary = Color3.fromRGB(245, 182, 204), -- Light Pink
+                Background = Color3.fromRGB(255, 240, 245),
+                Secondary = Color3.fromRGB(225, 156, 176),
+                Accent = Color3.fromRGB(250, 200, 218),
+                DarkContrast = Color3.fromRGB(215, 170, 186),
+                TextColor = Color3.fromRGB(90, 65, 85)
+            }
+        })
+
+        -- Tab and Section configuration for Keybinds GUI
+        local GeneralTab = Window:CreateTab("General Spells")
+        local QetsiyahTab = Window:CreateTab("Qetsiyah Spells")
+        local HopeTab = Window:CreateTab("Hope Spells")
+        local DarkJosieTab = Window:CreateTab("Dark Josie Spells")
+
+        local GeneralSection = GeneralTab:CreateSection("General Spell Settings")
+        local QetsiyahSection = QetsiyahTab:CreateSection("Qetsiyah Spells")
+        local HopeSection = HopeTab:CreateSection("Hope Spells")
+        local DarkJosieSection = DarkJosieTab:CreateSection("Dark Josie Spells")
+
+        -- Define General Spells for all witches (etc.)
+        local GeneralSpells = {
+            { Name = "Errox Femus", DefaultKey = "G", Command = "Errox Femus" },
+            { Name = "Menedek Qual Surenta", DefaultKey = "H", Command = "menedek qual surenta" },
+            { Name = "Incendia", DefaultKey = "J", Command = "Incendia" },
+            { Name = "Poena Doloris", DefaultKey = "K", Command = "Poena Doloris" },
+            { Name = "Immobilus", DefaultKey = "L", Command = "Immobilus" },
+            { Name = "Ossox", DefaultKey = "B", Command = "Ossox" },
+            { Name = "Ictus", DefaultKey = "N", Command = "Ictus" },
+            { Name = "Phasmatos Motus Incendiamos", DefaultKey = "M", Command = "Phasmatos Motus Incendiamos" },
+            { Name = "Silencio", DefaultKey = "V", Command = "Silencio" },
+            { Name = "Ad Somnum", DefaultKey = "C", Command = "Ad Somnum" },
+            { Name = "Motus", DefaultKey = "X", Command = "motus" },
+            { Name = "Invisique", DefaultKey = "Z", Command = "invisique" },
+            { Name = "Post Tenebras Spero Lucem", DefaultKey = "P", Command = "post tenebras spero lucem" },
+            { Name = "Vis Sera Portus", DefaultKey = "Q", Command = "vis sera portus" },
+            { Name = "Delfan Eoten Cor", DefaultKey = "R", Command = "delfan eoten cor" },
+            { Name = "Channel", DefaultKey = "T", Command = "channel" },
+        }
+
+        -- Define spells specific to each witch (as in previous versions)...
+
+        -- Function to create keybinds and toggle them on/off
+        local function createKeybinds(tab, spells)
+            for i, spell in ipairs(spells) do
+                local toggleState = false  -- Default state is off
+                local keybindButton = tab:CreateKeybind({
+                    Name = spell.Name,
+                    CurrentKeybind = spell.DefaultKey,
+                    HoldToInteract = false,
+                    Flag = "Keybind" .. i,
+                    Callback = function(Keybind)
+                        if toggleState then
+                            local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                            local args = {
+                                [1] = {
+                                    ["Incant"] = spell.Command,
+                                }
+                            }
+                            ReplicatedStorage:WaitForChild("RemoteEvents"):WaitForChild("WitchSpell"):FireServer(unpack(args))
+                        end
+                    end,
+                })
+
+                -- Add a toggle to enable/disable spell keybind
+                local toggle = tab:CreateToggle({
+                    Name = "Activate " .. spell.Name,
+                    CurrentValue = toggleState,
+                    Flag = "Toggle" .. i,
+                    Callback = function(Value)
+                        toggleState = Value  -- Update toggle state
+                    end,
+                })
+            end
+        end
+
+        -- Execute the function to create keybinds and toggles for all spells
+        createKeybinds(GeneralTab, GeneralSpells)
+
+        -- Add spells for Qetsiyah, Hope, and Dark Josie similarly
+        -- Example: createKeybinds(QetsiyahTab, QetsiyahSpells)
+
+    else
+        -- Inform the user that the password is incorrect
+        print("Incorrect password.")
+    end
+end)
