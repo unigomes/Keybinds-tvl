@@ -16,7 +16,7 @@ local Window = Rayfield:CreateWindow({
     }
 })
 
--- Tab and Section Configuration
+-- Tab and Section configuration
 local GeneralTab = Window:CreateTab("General Spells")
 local QetsiyahTab = Window:CreateTab("Qetsiyah Spells")
 local HopeTab = Window:CreateTab("Hope Spells")
@@ -100,6 +100,30 @@ local function createKeybinds(tab, spells, section)
                 toggleState = Value  -- Change the state when toggled
             end,
         })
+
+        -- If the spell requires spamming (Autem, Menedek, etc.), add a Spam toggle
+        if spell.Name == "Autem" or spell.Name == "Menedek Qual Surenta" or spell.Name == "Ignis Ubique" or spell.Name == "Motus" or spell.Name == "Ah Sha Lana" or spell.Name == "Invisique" or spell.Name == "Post Tenebras Spero Lucem" or spell.Name == "Ascendo" then
+            tab:CreateToggle({
+                Name = "Spam " .. spell.Name,
+                CurrentValue = false,
+                Flag = "SpamToggle" .. i,
+                Callback = function(Value)
+                    _G["Spam" .. spell.Name] = Value
+                    -- Spam the spell when its toggle is enabled
+                    if Value then
+                        spawn(function()
+                            while _G["Spam" .. spell.Name] do
+                                local args = {
+                                    [1] = {["Incant"] = spell.Command}
+                                }
+                                ReplicatedStorage:WaitForChild("RemoteEvents"):WaitForChild("WitchSpell"):FireServer(unpack(args))
+                                wait(0)
+                            end
+                        end)
+                    end
+                end,
+            })
+        end
     end
 end
 
@@ -114,129 +138,3 @@ createKeybinds(HopeTab, HopeSpells, HopeSection)
 
 -- Create keybinds for Dark Josie's spells
 createKeybinds(DarkJosieTab, DarkJosieSpells, DarkJosieSection)
-
--- Spam Toggle and Function for selected spells
-local SpamAutem = false
-local SpamMenedek = false
-local SpamIgnis = false
-local SpamMotus = false
-local SpamAhShaLana = false
-local SpamInvisique = false
-local SpamPostTenebras = false
-local SpamAscendo = false
-
--- Function for spamming spells
-local function spamSpell(SpellName, SpellCommand)
-    local ReplicatedStorage = game:GetService("ReplicatedStorage")
-    while true do
-        if _G["Spam" .. SpellName] then
-            local args = {
-                [1] = {
-                    ["Incant"] = SpellCommand
-                }
-            }
-            ReplicatedStorage:WaitForChild("RemoteEvents"):WaitForChild("WitchSpell"):FireServer(unpack(args))
-        else
-            break
-        end
-        wait(0)
-    end
-end
-
--- Create Spam Toggles
-GeneralTab:CreateToggle({
-    Name = "Spam Autem",
-    CurrentValue = false,
-    Flag = "SpamAutem",
-    Callback = function(Value)
-        _G.SpamAutem = Value
-        if Value then
-            spawn(function() spamSpell("Autem", "autem") end)
-        end
-    end,
-})
-
-GeneralTab:CreateToggle({
-    Name = "Spam Menedek",
-    CurrentValue = false,
-    Flag = "SpamMenedek",
-    Callback = function(Value)
-        _G.SpamMenedek = Value
-        if Value then
-            spawn(function() spamSpell("Menedek", "menedek qual surenta") end)
-        end
-    end,
-})
-
-GeneralTab:CreateToggle({
-    Name = "Spam Ignis Ubique",
-    CurrentValue = false,
-    Flag = "SpamIgnis",
-    Callback = function(Value)
-        _G.SpamIgnis = Value
-        if Value then
-            spawn(function() spamSpell("IgnisUbique", "ignis ubique") end)
-        end
-    end,
-})
-
-GeneralTab:CreateToggle({
-    Name = "Spam Motus",
-    CurrentValue = false,
-    Flag = "SpamMotus",
-    Callback = function(Value)
-        _G.SpamMotus = Value
-        if Value then
-            spawn(function() spamSpell("Motus", "motus") end)
-        end
-    end,
-})
-
-GeneralTab:CreateToggle({
-    Name = "Spam Ah Sha Lana",
-    CurrentValue = false,
-    Flag = "SpamAhShaLana",
-    Callback = function(Value)
-        _G.SpamAhShaLana = Value
-        if Value then
-            spawn(function() spamSpell("AhShaLana", "ah sha lana") end)
-        end
-    end,
-})
-
-GeneralTab:CreateToggle({
-    Name = "Spam Invisique",
-    CurrentValue = false,
-    Flag = "SpamInvisique",
-    Callback = function(Value)
-        _G.SpamInvisique = Value
-        if Value then
-            spawn(function() spamSpell("Invisique", "invisique") end)
-        end
-    end,
-})
-
-GeneralTab:CreateToggle({
-    Name = "Spam Post Tenebras",
-    CurrentValue = false,
-    Flag = "SpamPostTenebras",
-    Callback = function(Value)
-        _G.SpamPostTenebras = Value
-        if Value then
-            spawn(function() spamSpell("PostTenebras", "post tenebras spero lucem") end)
-        end
-    end,
-})
-
-GeneralTab:CreateToggle({
-    Name = "Spam Ascendo",
-    CurrentValue = false,
-    Flag = "SpamAscendo",
-    Callback = function(Value)
-        _G.SpamAscendo = Value
-        if Value then
-            spawn(function() spamSpell("Ascendo", "ascendo") end)
-        end
-    end,
-})
-
