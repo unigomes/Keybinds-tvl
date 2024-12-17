@@ -1,69 +1,46 @@
--- Contraseña predeterminada
+-- Create the Password Validation GUI first
+local passwordGUI = Instance.new("ScreenGui")
+local frame = Instance.new("Frame")
+local textBox = Instance.new("TextBox")
+local label = Instance.new("TextLabel")
+local submitButton = Instance.new("TextButton")
+
+-- Configure the password GUI
+passwordGUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+frame.Parent = passwordGUI
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame.Size = UDim2.new(0, 300, 0, 200)
+frame.Position = UDim2.new(0.5, -150, 0.5, -100)
+
+label.Parent = frame
+label.BackgroundTransparency = 1
+label.Position = UDim2.new(0, 10, 0, 20)
+label.Size = UDim2.new(1, -20, 0, 40)
+label.Text = "Enter Password:"
+label.TextSize = 24
+label.TextColor3 = Color3.fromRGB(0, 0, 0)
+
+textBox.Parent = frame
+textBox.Position = UDim2.new(0, 10, 0, 70)
+textBox.Size = UDim2.new(1, -20, 0, 40)
+textBox.ClearTextOnFocus = true
+textBox.PlaceholderText = "Enter password"
+textBox.TextSize = 24
+
+submitButton.Parent = frame
+submitButton.Size = UDim2.new(0, 100, 0, 40)
+submitButton.Position = UDim2.new(0, 10, 0, 120)
+submitButton.Text = "Submit"
+submitButton.TextSize = 24
+submitButton.BackgroundColor3 = Color3.fromRGB(100, 200, 100)
+
 local correctPassword = "555824606"
 
--- Crear pantalla de inicio de sesión
-local LoginScreen = Instance.new("ScreenGui")
-local LoginFrame = Instance.new("Frame")
-local PasswordBox = Instance.new("TextBox")
-local LoginButton = Instance.new("TextButton")
-local TitleLabel = Instance.new("TextLabel")
-local UICornerLoginFrame = Instance.new("UICorner")
-
-LoginScreen.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-LoginFrame.Parent = LoginScreen
-LoginFrame.Size = UDim2.new(0, 400, 0, 200)
-LoginFrame.Position = UDim2.new(0.5, -200, 0.5, -100)
-LoginFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-LoginFrame.Active = true
-LoginFrame.Draggable = true
-
-UICornerLoginFrame.Parent = LoginFrame
-UICornerLoginFrame.CornerRadius = UDim.new(0, 18)
-
-TitleLabel.Parent = LoginFrame
-TitleLabel.Size = UDim2.new(1, 0, 0, 40)
-TitleLabel.Position = UDim2.new(0, 0, 0, 10)
-TitleLabel.Text = "Enter Password"
-TitleLabel.TextScaled = true
-TitleLabel.Font = Enum.Font.GothamBold
-TitleLabel.TextColor3 = Color3.fromRGB(240, 240, 240)
-TitleLabel.BackgroundTransparency = 1
-
-PasswordBox.Parent = LoginFrame
-PasswordBox.Size = UDim2.new(1, -20, 0, 40)
-PasswordBox.Position = UDim2.new(0, 10, 0, 60)
-PasswordBox.PlaceholderText = "Enter password"
-PasswordBox.Font = Enum.Font.Gotham
-PasswordBox.TextScaled = true
-PasswordBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-PasswordBox.TextColor3 = Color3.fromRGB(200, 200, 200)
-
-local UICornerTextBox = Instance.new("UICorner")
-UICornerTextBox.Parent = PasswordBox
-UICornerTextBox.CornerRadius = UDim.new(0, 12)
-
-LoginButton.Parent = LoginFrame
-LoginButton.Size = UDim2.new(1, -20, 0, 50)
-LoginButton.Position = UDim2.new(0, 10, 0, 120)
-LoginButton.Text = "Login"
-LoginButton.TextScaled = true
-LoginButton.Font = Enum.Font.GothamBold
-LoginButton.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
-LoginButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-local UICornerLoginButton = Instance.new("UICorner")
-UICornerLoginButton.Parent = LoginButton
-UICornerLoginButton.CornerRadius = UDim.new(0, 12)
-
--- Comprobación de la contraseña
-LoginButton.MouseButton1Click:Connect(function()
-    if PasswordBox.Text == correctPassword then
-        -- Si la contraseña es correcta, destruye la pantalla de login y ejecuta la GUI principal
-        LoginScreen:Destroy()
-
-        -- Keybinds GUI
-
+submitButton.MouseButton1Click:Connect(function()
+    if textBox.Text == correctPassword then
+        passwordGUI:Destroy()  -- Destroy the password GUI once correct password is entered
+        -- Now run the original script
+        -- Create the Rayfield GUI after successful password validation
         local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/nixckk/UI-Library/refs/heads/main/Rayfield'))()
         local Window = Rayfield:CreateWindow({
             Name = "Spell Keybind GUI -- Created by Uni",  -- Added the creator's sign next to the title
@@ -203,16 +180,9 @@ LoginButton.MouseButton1Click:Connect(function()
 
         -- Create keybinds for Dark Josie's spells
         createKeybinds(DarkJosieTab, DarkJosieSpells, DarkJosieSection)
-
     else
-        print("Incorrect password.")
-    end
-end)
-
-        -- Create keybinds for Dark Josie's spells
-        createKeybinds(DarkJosieTab, DarkJosieSpells, DarkJosieSection)
-
-    else
-        print("Incorrect password.")
+        -- If password is incorrect, destroy the password GUI
+        textBox.Text = ""
+        label.Text = "Incorrect password, try again:"
     end
 end)
