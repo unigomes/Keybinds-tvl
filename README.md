@@ -5,6 +5,7 @@ local Window = Rayfield:CreateWindow({
     LoadingTitle = "Loading Spells...",
     LoadingSubtitle = "Customizable",
     DisableRayfieldPrompts = false,
+    SizeX = 1000,  -- Make the GUI wider horizontally to fit multiple tabs
     Theme = {
         Primary = Color3.fromRGB(245, 182, 204), -- Light Pink
         Background = Color3.fromRGB(255, 240, 245),
@@ -17,18 +18,16 @@ local Window = Rayfield:CreateWindow({
 
 -- Tab and Section Configuration
 local GeneralTab = Window:CreateTab("General Spells")
-local SpamSpellsTab = Window:CreateTab("Spam Spells")
 local QetsiyahTab = Window:CreateTab("Qetsiyah Spells")
 local HopeTab = Window:CreateTab("Hope Spells")
 local DarkJosieTab = Window:CreateTab("Dark Josie Spells")
 
 local GeneralSection = GeneralTab:CreateSection("General Spell Settings")
-local SpamSection = SpamSpellsTab:CreateSection("Spam Spell Settings")
 local QetsiyahSection = QetsiyahTab:CreateSection("Qetsiyah Spells")
 local HopeSection = HopeTab:CreateSection("Hope Spells")
 local DarkJosieSection = DarkJosieTab:CreateSection("Dark Josie Spells")
 
--- General spells for all witches
+-- Table of General Spells for all witches
 local GeneralSpells = {
     { Name = "Errox Femus", DefaultKey = "G", Command = "Errox Femus" },
     { Name = "Menedek Qual Surenta", DefaultKey = "H", Command = "menedek qual surenta" },
@@ -48,17 +47,7 @@ local GeneralSpells = {
     { Name = "Channel", DefaultKey = "T", Command = "channel" },
 }
 
--- Spells that can be spammed
-local SpamSpells = {
-    { Name = "Autem", DefaultKey = "H", Command = "autem" },
-    { Name = "Menedek Qual Surenta", DefaultKey = "I", Command = "menedek qual surenta" },
-    { Name = "Ignis Ubique", DefaultKey = "J", Command = "ignis ubique" },
-    { Name = "Motus", DefaultKey = "K", Command = "motus" },
-    { Name = "Ah Sha Lana", DefaultKey = "L", Command = "ah sha lana" },
-    { Name = "Ascendo", DefaultKey = "B", Command = "ascendo" },
-}
-
--- Qetsiyah's exclusive spells
+-- Table of specific spells for Qetsiyah
 local QetsiyahSpells = {
     { Name = "Ferveret Sanguis", DefaultKey = "J", Command = "ferveret sanguis" },
     { Name = "Ah Sha Lana", DefaultKey = "K", Command = "ah sha lana" },
@@ -66,13 +55,13 @@ local QetsiyahSpells = {
     { Name = "Venenum Corpus", DefaultKey = "B", Command = "venenum corpus" },
 }
 
--- Hope's exclusive spells
+-- Table of specific spells for Hope
 local HopeSpells = {
     { Name = "Lecutio Maxima", DefaultKey = "J", Command = "lecutio maxima" },
     { Name = "Ventus", DefaultKey = "K", Command = "ventus" },
 }
 
--- Dark Josie's exclusive spells
+-- Table of specific spells for Dark Josie
 local DarkJosieSpells = {
     { Name = "Lecutio Maxima", DefaultKey = "J", Command = "lecutio maxima" },
     { Name = "Autem", DefaultKey = "K", Command = "autem" },
@@ -80,17 +69,17 @@ local DarkJosieSpells = {
     { Name = "Ascendo", DefaultKey = "B", Command = "ascendo" },
 }
 
--- Function to create keybinds with a spam toggle for faster casting
+-- Function to create keybinds with a toggle for enabling/disabling
 local function createKeybinds(tab, spells, section)
     for i, spell in ipairs(spells) do
-        local spamState = false  -- Set the spam state off by default
+        local toggleState = false  -- Set the toggle to OFF by default
         local keybindButton = tab:CreateKeybind({
             Name = spell.Name,
             CurrentKeybind = spell.DefaultKey,
             HoldToInteract = false,
             Flag = "Keybind" .. i, -- Unique identifier
             Callback = function(Keybind)
-                if spamState then
+                if toggleState then
                     local ReplicatedStorage = game:GetService("ReplicatedStorage")
                     local args = {
                         [1] = {
@@ -102,27 +91,13 @@ local function createKeybinds(tab, spells, section)
             end,
         })
 
-        -- Add a toggle to enable/disable the spell spamming
+        -- Add a toggle to enable/disable the keybind, set to OFF by default
         local toggle = tab:CreateToggle({
-            Name = "Spam " .. spell.Name,
-            CurrentValue = spamState,  -- Set to OFF by default
-            Flag = "SpamToggle" .. i,
+            Name = "Activate " .. spell.Name,
+            CurrentValue = toggleState,  -- Set to OFF by default
+            Flag = "Toggle" .. i,
             Callback = function(Value)
-                spamState = Value  -- Change the state when toggled
-                -- Start or stop spam casting
-                if Value then
-                    -- Start spamming
-                    while spamState do
-                        local ReplicatedStorage = game:GetService("ReplicatedStorage")
-                        local args = {
-                            [1] = {
-                                ["Incant"] = spell.Command,
-                            }
-                        }
-                        ReplicatedStorage:WaitForChild("RemoteEvents"):WaitForChild("WitchSpell"):FireServer(unpack(args))
-                        wait(0)  -- Set a very small delay to spam the spell continuously
-                    end
-                end
+                toggleState = Value  -- Change the state when toggled
             end,
         })
     end
@@ -131,14 +106,137 @@ end
 -- Create keybinds for general spells
 createKeybinds(GeneralTab, GeneralSpells, GeneralSection)
 
--- Create spam toggle keybinds for specific spells in Spam Spells tab
-createKeybinds(SpamSpellsTab, SpamSpells, SpamSection)
-
--- Create keybinds for Qetsiyah's exclusive spells
+-- Create keybinds for Qetsiyah's spells
 createKeybinds(QetsiyahTab, QetsiyahSpells, QetsiyahSection)
 
--- Create keybinds for Hope's exclusive spells
+-- Create keybinds for Hope's spells
 createKeybinds(HopeTab, HopeSpells, HopeSection)
 
--- Create keybinds for Dark Josie's exclusive spells
+-- Create keybinds for Dark Josie's spells
 createKeybinds(DarkJosieTab, DarkJosieSpells, DarkJosieSection)
+
+-- Spam Toggle and Function for selected spells
+local SpamAutem = false
+local SpamMenedek = false
+local SpamIgnis = false
+local SpamMotus = false
+local SpamAhShaLana = false
+local SpamInvisique = false
+local SpamPostTenebras = false
+local SpamAscendo = false
+
+-- Function for spamming spells
+local function spamSpell(SpellName, SpellCommand)
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    while true do
+        if _G["Spam" .. SpellName] then
+            local args = {
+                [1] = {
+                    ["Incant"] = SpellCommand
+                }
+            }
+            ReplicatedStorage:WaitForChild("RemoteEvents"):WaitForChild("WitchSpell"):FireServer(unpack(args))
+        else
+            break
+        end
+        wait(0)
+    end
+end
+
+-- Create Spam Toggles
+GeneralTab:CreateToggle({
+    Name = "Spam Autem",
+    CurrentValue = false,
+    Flag = "SpamAutem",
+    Callback = function(Value)
+        _G.SpamAutem = Value
+        if Value then
+            spawn(function() spamSpell("Autem", "autem") end)
+        end
+    end,
+})
+
+GeneralTab:CreateToggle({
+    Name = "Spam Menedek",
+    CurrentValue = false,
+    Flag = "SpamMenedek",
+    Callback = function(Value)
+        _G.SpamMenedek = Value
+        if Value then
+            spawn(function() spamSpell("Menedek", "menedek qual surenta") end)
+        end
+    end,
+})
+
+GeneralTab:CreateToggle({
+    Name = "Spam Ignis Ubique",
+    CurrentValue = false,
+    Flag = "SpamIgnis",
+    Callback = function(Value)
+        _G.SpamIgnis = Value
+        if Value then
+            spawn(function() spamSpell("IgnisUbique", "ignis ubique") end)
+        end
+    end,
+})
+
+GeneralTab:CreateToggle({
+    Name = "Spam Motus",
+    CurrentValue = false,
+    Flag = "SpamMotus",
+    Callback = function(Value)
+        _G.SpamMotus = Value
+        if Value then
+            spawn(function() spamSpell("Motus", "motus") end)
+        end
+    end,
+})
+
+GeneralTab:CreateToggle({
+    Name = "Spam Ah Sha Lana",
+    CurrentValue = false,
+    Flag = "SpamAhShaLana",
+    Callback = function(Value)
+        _G.SpamAhShaLana = Value
+        if Value then
+            spawn(function() spamSpell("AhShaLana", "ah sha lana") end)
+        end
+    end,
+})
+
+GeneralTab:CreateToggle({
+    Name = "Spam Invisique",
+    CurrentValue = false,
+    Flag = "SpamInvisique",
+    Callback = function(Value)
+        _G.SpamInvisique = Value
+        if Value then
+            spawn(function() spamSpell("Invisique", "invisique") end)
+        end
+    end,
+})
+
+GeneralTab:CreateToggle({
+    Name = "Spam Post Tenebras",
+    CurrentValue = false,
+    Flag = "SpamPostTenebras",
+    Callback = function(Value)
+        _G.SpamPostTenebras = Value
+        if Value then
+            spawn(function() spamSpell("PostTenebras", "post tenebras spero lucem") end)
+        end
+    end,
+})
+
+GeneralTab:CreateToggle({
+    Name = "Spam Ascendo",
+    CurrentValue = false,
+    Flag = "SpamAscendo",
+    Callback = function(Value)
+        _G.SpamAscendo = Value
+        if Value then
+            spawn(function() spamSpell("Ascendo", "ascendo") end)
+        end
+    end,
+})
+
