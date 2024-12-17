@@ -1,7 +1,7 @@
--- Default password
+-- Contraseña predeterminada
 local correctPassword = "555824606"
 
--- Create login screen
+-- Crear pantalla de inicio de sesión
 local LoginScreen = Instance.new("ScreenGui")
 local LoginFrame = Instance.new("Frame")
 local PasswordBox = Instance.new("TextBox")
@@ -56,15 +56,14 @@ local UICornerLoginButton = Instance.new("UICorner")
 UICornerLoginButton.Parent = LoginButton
 UICornerLoginButton.CornerRadius = UDim.new(0, 12)
 
--- Check password
+-- Comprobación de la contraseña
 LoginButton.MouseButton1Click:Connect(function()
     if PasswordBox.Text == correctPassword then
-        -- If the password is correct, destroy the login screen and execute the main GUI
-
-        -- Destroy login screen to continue to the main GUI
+        -- Si la contraseña es correcta, destruye la pantalla de login y ejecuta la GUI principal
         LoginScreen:Destroy()
 
-        -- Start the main Keybinds GUI
+        -- Keybinds GUI
+
         local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/nixckk/UI-Library/refs/heads/main/Rayfield'))()
         local Window = Rayfield:CreateWindow({
             Name = "Spell Keybind GUI -- Created by Uni",  -- Added the creator's sign next to the title
@@ -209,7 +208,6 @@ LoginButton.MouseButton1Click:Connect(function()
         print("Incorrect password.")
     end
 end)
-
 
         -- Create keybinds for Dark Josie's spells
         createKeybinds(DarkJosieTab, DarkJosieSpells, DarkJosieSection)
