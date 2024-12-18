@@ -12,50 +12,50 @@ local UICornerLoginFrame = Instance.new("UICorner")
 -- This must be added to the player's PlayerGui to display the login screen
 LoginScreen.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- LoginFrame setup
+-- LoginFrame setup (Updated for sleek, modern look)
 LoginFrame.Parent = LoginScreen
-LoginFrame.Size = UDim2.new(0, 400, 0, 250)  -- Increased the size of the frame
-LoginFrame.Position = UDim2.new(0.5, -200, 0.5, -125)  -- Adjusted position to center better
-LoginFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)  -- Dark grey color
+LoginFrame.Size = UDim2.new(0, 400, 0, 250)
+LoginFrame.Position = UDim2.new(0.5, -200, 0.5, -125)  -- Center it properly
+LoginFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)  -- Dark grey background
 LoginFrame.Active = true
 LoginFrame.Draggable = true
 
 UICornerLoginFrame.Parent = LoginFrame
 UICornerLoginFrame.CornerRadius = UDim.new(0, 18)  -- Rounded corners
 
--- Title Label setup (slightly more elegant text)
+-- Title Label setup
 TitleLabel.Parent = LoginFrame
 TitleLabel.Size = UDim2.new(1, 0, 0, 50)
 TitleLabel.Position = UDim2.new(0, 0, 0, 20)
 TitleLabel.Text = "Enter Password"
 TitleLabel.TextScaled = true
 TitleLabel.Font = Enum.Font.GothamBold
-TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White color for the title
+TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 TitleLabel.BackgroundTransparency = 1
 
 -- Password Box setup
 PasswordBox.Parent = LoginFrame
-PasswordBox.Size = UDim2.new(1, -40, 0, 45)  -- Adjusted the size to fit better
+PasswordBox.Size = UDim2.new(1, -40, 0, 45)
 PasswordBox.Position = UDim2.new(0, 20, 0, 80)
 PasswordBox.PlaceholderText = "Enter password"
 PasswordBox.Font = Enum.Font.Gotham
 PasswordBox.TextScaled = true
-PasswordBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)  -- Dark grey color
-PasswordBox.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White text
+PasswordBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)  -- Slightly darker grey
+PasswordBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 local UICornerTextBox = Instance.new("UICorner")
 UICornerTextBox.Parent = PasswordBox
 UICornerTextBox.CornerRadius = UDim.new(0, 15)  -- Rounded corners
 
--- Login Button setup (rounded and elegant look)
+-- Login Button setup
 LoginButton.Parent = LoginFrame
 LoginButton.Size = UDim2.new(1, -40, 0, 50)
 LoginButton.Position = UDim2.new(0, 20, 0, 150)
 LoginButton.Text = "Login"
 LoginButton.TextScaled = true
 LoginButton.Font = Enum.Font.GothamBold
-LoginButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)  -- Very dark grey for buttons
-LoginButton.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White text
+LoginButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)  -- Dark color for button
+LoginButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 local UICornerLoginButton = Instance.new("UICorner")
 UICornerLoginButton.Parent = LoginButton
@@ -64,15 +64,15 @@ UICornerLoginButton.CornerRadius = UDim.new(0, 20)  -- Rounded corners for butto
 -- Additional corner effects for the login frame
 local UICornerOuter = Instance.new("UICorner")
 UICornerOuter.Parent = LoginFrame
-UICornerOuter.CornerRadius = UDim.new(0, 20)  -- Elegant outer frame rounded corners
+UICornerOuter.CornerRadius = UDim.new(0, 20)
 
--- Check password and execute GUI
+-- Check password and execute the main GUI (keybinds, etc.)
 LoginButton.MouseButton1Click:Connect(function()
     if PasswordBox.Text == correctPassword then
         -- If password is correct, destroy login screen and execute main GUI
         LoginScreen:Destroy()
 
-        -- Start the main Keybinds GUI
+        -- Load Rayfield UI Library
         local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/nixckk/UI-Library/refs/heads/main/Rayfield'))()
         local Window = Rayfield:CreateWindow({
             Name = "Spell Keybind GUI -- Created by Uni",  -- Added the creator's sign next to the title
@@ -101,7 +101,7 @@ LoginButton.MouseButton1Click:Connect(function()
         local HopeSection = HopeTab:CreateSection("Hope Spells")
         local DarkJosieSection = DarkJosieTab:CreateSection("Dark Josie Spells")
 
-        -- Define General Spells for all witches (etc.)
+        -- Define General Spells for all witches
         local GeneralSpells = {
             { Name = "Errox Femus", DefaultKey = "G", Command = "Errox Femus" },
             { Name = "Menedek Qual Surenta", DefaultKey = "H", Command = "menedek qual surenta" },
@@ -154,6 +154,30 @@ LoginButton.MouseButton1Click:Connect(function()
                         toggleState = Value  -- Update toggle state
                     end,
                 })
+
+                -- If the spell requires spamming (Autem, Menedek, etc.), add a Spam toggle
+                if spell.Name == "Autem" or spell.Name == "Menedek Qual Surenta" or spell.Name == "Ignis Ubique" or spell.Name == "Motus" or spell.Name == "Ah Sha Lana" or spell.Name == "Invisique" or spell.Name == "Post Tenebras Spero Lucem" or spell.Name == "Ascendo" then
+                    tab:CreateToggle({
+                        Name = "Spam " .. spell.Name,
+                        CurrentValue = false,
+                        Flag = "SpamToggle" .. i,
+                        Callback = function(Value)
+                            _G["Spam" .. spell.Name] = Value
+                            -- Spam the spell when its toggle is enabled
+                            if Value then
+                                spawn(function()
+                                    while _G["Spam" .. spell.Name] do
+                                        local args = {
+                                            [1] = {["Incant"] = spell.Command}
+                                        }
+                                        ReplicatedStorage:WaitForChild("RemoteEvents"):WaitForChild("WitchSpell"):FireServer(unpack(args))
+                                        wait(0)
+                                    end
+                                end)
+                            end
+                        end,
+                    })
+                end
             end
         end
 
