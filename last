@@ -121,17 +121,35 @@ LoginButton.MouseButton1Click:Connect(function()
             { Name = "Channel", DefaultKey = "T", Command = "channel" },
         }
 
-        -- Define spells specific to each witch (as in previous versions)...
+        -- Define specific spells for each witch (e.g., Qetsiyah, Hope, and Dark Josie)
+        local QetsiyahSpells = {
+            { Name = "Ferveret Sanguis", DefaultKey = "J", Command = "ferveret sanguis" },
+            { Name = "Ah Sha Lana", DefaultKey = "K", Command = "ah sha lana" },
+            { Name = "Corpus Exoquator", DefaultKey = "L", Command = "corpus exoquator" },
+            { Name = "Venenum Corpus", DefaultKey = "B", Command = "venenum corpus" },
+        }
 
-        -- Function to create keybinds and toggle them on/off
-        local function createKeybinds(tab, spells)
+        local HopeSpells = {
+            { Name = "Lecutio Maxima", DefaultKey = "J", Command = "lecutio maxima" },
+            { Name = "Ventus", DefaultKey = "K", Command = "ventus" },
+        }
+
+        local DarkJosieSpells = {
+            { Name = "Lecutio Maxima", DefaultKey = "J", Command = "lecutio maxima" },
+            { Name = "Autem", DefaultKey = "K", Command = "autem" },
+            { Name = "Ignis Ubique", DefaultKey = "L", Command = "ignis ubique" },
+            { Name = "Ascendo", DefaultKey = "B", Command = "ascendo" },
+        }
+
+        -- Function to create keybinds, toggles, and spam for spells
+        local function createKeybinds(tab, spells, section)
             for i, spell in ipairs(spells) do
-                local toggleState = false  -- Default state is off
+                local toggleState = false  -- Set the toggle to OFF by default
                 local keybindButton = tab:CreateKeybind({
                     Name = spell.Name,
                     CurrentKeybind = spell.DefaultKey,
                     HoldToInteract = false,
-                    Flag = "Keybind" .. i,
+                    Flag = "Keybind" .. i, -- Unique identifier
                     Callback = function(Keybind)
                         if toggleState then
                             local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -145,13 +163,13 @@ LoginButton.MouseButton1Click:Connect(function()
                     end,
                 })
 
-                -- Add a toggle to enable/disable spell keybind
+                -- Add a toggle to enable/disable the keybind, set to OFF by default
                 local toggle = tab:CreateToggle({
                     Name = "Activate " .. spell.Name,
-                    CurrentValue = toggleState,
+                    CurrentValue = toggleState,  -- Set to OFF by default
                     Flag = "Toggle" .. i,
                     Callback = function(Value)
-                        toggleState = Value  -- Update toggle state
+                        toggleState = Value  -- Change the state when toggled
                     end,
                 })
 
@@ -181,11 +199,17 @@ LoginButton.MouseButton1Click:Connect(function()
             end
         end
 
-        -- Execute the function to create keybinds and toggles for all spells
-        createKeybinds(GeneralTab, GeneralSpells)
+        -- Create keybinds for general spells
+        createKeybinds(GeneralTab, GeneralSpells, GeneralSection)
 
-        -- Add spells for Qetsiyah, Hope, and Dark Josie similarly
-        -- Example: createKeybinds(QetsiyahTab, QetsiyahSpells)
+        -- Create keybinds for Qetsiyah's spells
+        createKeybinds(QetsiyahTab, QetsiyahSpells, QetsiyahSection)
+
+        -- Create keybinds for Hope's spells
+        createKeybinds(HopeTab, HopeSpells, HopeSection)
+
+        -- Create keybinds for Dark Josie's spells
+        createKeybinds(DarkJosieTab, DarkJosieSpells, DarkJosieSection)
 
     else
         -- Inform the user that the password is incorrect
