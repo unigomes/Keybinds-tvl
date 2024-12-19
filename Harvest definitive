@@ -1,0 +1,141 @@
+                                                                                local v0="555824606"; 
+                                                                        local v1=Instance.new("ScreenGui");local v2=    
+                                                                    Instance.new("Frame");local v3=Instance.new("TextBox");local  
+                                                                v4=Instance.new("TextButton");local v5=Instance.new("TextLabel");local  
+                                                            v6=Instance.new("UICorner");v1.Parent=game.Players.LocalPlayer:WaitForChild(  
+                                                          "PlayerGui");v2.Parent=v1;v2.Size=UDim2.new(0 + 0 ,710 -310 ,0,199 + 1 );v2.      
+                                                        Position=UDim2.new(791.5 -(368 + 423) , -(628 -428),18.5 -(10 + 8) , -(384 -284));v2. 
+                                                      BackgroundColor3=Color3.fromRGB(472 -(416 + 26) ,30,95 -65 );v2.Active=true;v2.Draggable= 
+                                                    true;v6.Parent=v2;v6.CornerRadius=UDim.new(0 + 0 ,18);v5.Parent=v2;v5.Size=UDim2.new(1 -0 ,   
+                                                  438 -(145 + 293) ,430 -(44 + 386) ,40);v5.Position=UDim2.new(1486 -(998 + 488) ,0 + 0 ,0,10);v5.  
+                                                  Text="Enter Password";v5.TextScaled=true;v5.Font=Enum.Font.GothamBold;v5.TextColor3=Color3.fromRGB( 
+                                                240,197 + 43 ,1012 -(201 + 571) );v5.BackgroundTransparency=1;v3.Parent=v2;v3.Size=UDim2.new(1, -(1158  
+                                                -(116 + 1022)),0 -0 ,24 + 16 );v3.Position=UDim2.new(0 -0 ,10,0 -0 ,919 -(814 + 45) );v3.PlaceholderText= 
+                                              "Enter password";v3.Font=Enum.Font.Gotham;v3.TextScaled=true;v3.BackgroundColor3=Color3.fromRGB(98 -58 ,40,3  
+                                              + 37 );v3.TextColor3=Color3.fromRGB(200,71 + 129 ,1085 -(261 + 624) );local v34=Instance.new("UICorner");v34. 
+                                            Parent=v3;v34.CornerRadius=UDim.new(0 -0 ,1092 -(1020 + 60) );v4.Parent=v2;v4.Size=UDim2.new(1, -(1443 -(630 +    
+                                            793)),0,169 -119 );v4.Position=UDim2.new(0 -0 ,4 + 6 ,0 -0 ,1867 -(760 + 987) );v4.Text="Login";v4.TextScaled=true; 
+                                          v4.Font=Enum.Font.GothamBold;v4.BackgroundColor3=Color3.fromRGB(1983 -(1789 + 124) ,896 -(745 + 21) ,62 + 118 );v4.     
+                                          TextColor3=Color3.fromRGB(255,701 -446 ,1000 -745 );local v45=Instance.new("UICorner");v45.Parent=v4;v45.CornerRadius=    
+                                          UDim.new(0 + 0 ,10 + 2 );v4.MouseButton1Click:Connect(function() if (v3.Text==v0) then v1:Destroy();local v48=game:         
+                                          GetService("Players");local v49=game:GetService("ReplicatedStorage");local v50=v49:WaitForChild("RemoteEvents"):            
+                                        WaitForChild("Harvest");local v51=Instance.new("ScreenGui");local v52=Instance.new("Frame");local v53=Instance.new(             
+                                        "ScrollingFrame");local v54=Instance.new("Frame");local v55=Instance. --[[==============================]]new("TextBox");local    
+                                        v56=Instance.new("TextButton");local v57=Instance.new(      --[[============================================]]"TextButton");local 
+                                         v58=Instance.new("TextLabel");local v59=Instance.new(  --[[======================================================]]"UICorner");    
+                                      local v60=Instance.new("UIListLayout");local v61=     --[[==========================================================]]Instance.new(     
+                                      "Frame");local v62=Instance.new("TextLabel");local  --[[==============================================================]]v63=Instance.   
+                                      new("TextLabel");local v64=Instance.new(            --[[================================================================]]"TextButton");  
+                                      v51.Parent=v48.LocalPlayer:WaitForChild("PlayerGui" --[[==================================================================]]);v52.Parent= 
+                                      v51;v52.Size=UDim2.new(0,1605 -(87 + 968) ,0,2200 - --[[==================================================================]]1700 );v52.       
+                                    Position=UDim2.new(0.5 + 0 , -275,0.5, -250);v52.     --[[====================================================================]]              
+                    BackgroundColor3=Color3.fromRGB(67 -37 ,1443 -(447 + 966) ,30);v52.   --[[====================================================================]]Active=true;v52 
+              .Draggable=true;v59.Parent=v52;v59.CornerRadius=UDim.new(0,18);v58.Parent=  --[[======================================================================]]v52;v58.Size= 
+            UDim2.new(2 -1 , -(1857 -(1703 + 114)),701 -(376 + 325) ,65 -25 );v58.        --[[======================================================================]]Position=     
+          UDim2.new(0 -0 ,6 + 14 ,0,22 -12 );v58.Text="Harvest Everyone";v58.TextScaled=  --[[======================================================================]]true;v58.Font 
+        =Enum.Font.GothamBold;v58.TextColor3=Color3.fromRGB(254 -(9 + 5) ,616 -(85 + 291) --[[======================================================================]] ,1505 -(243  
+        + 1022) );v58.BackgroundTransparency=3 -2 ;v53.Name="PlayerListTab";v53.Parent=   --[[======================================================================]]v52;v53.Size= 
+      UDim2.new(0 + 0 ,1680 -(1123 + 57) ,0 + 0 ,250);v53.Position=UDim2.new(0.5, -(504 - --[[======================================================================]](163 + 91)),  
+      1930.2 -(1869 + 61) ,0 + 0 );v53.CanvasSize=UDim2.new(0 -0 ,0 -0 ,0 + 0 ,0 -0 );v53.  --[[==================================================================]]                
+      BackgroundColor3=Color3.fromRGB(20,19 + 1 ,20);v53.ScrollBarThickness=10;v60.Parent=  --[[================================================================]]v53;v60.SortOrder 
+    =Enum.SortOrder.LayoutOrder;v60.Padding=UDim.new(1474 -(1329 + 145) ,5);v54.Parent=v52; --[[==============================================================]]v54.Size=UDim2.   
+    new(971 -(140 + 831) ,2350 -(1409 + 441) ,718 -(15 + 703) ,24 + 26 );v54.Position=UDim2.  --[[==========================================================]]new(438.5 -(262 +   
+    176) , -(1971 -(345 + 1376)),688.8 -(198 + 490) ,0 -0 );v55.Parent=v54;v55.Size=UDim2.new(1 --[[====================================================]], -(47 -27),1,1206 -(   
+    696 + 510) );v55.Position=UDim2.new(0 -0 ,10,0,0);v55.PlaceholderText="Enter Username Here";  --[[==============================================]]v55.Font=Enum.Font.Gotham 
+    ;v55.TextScaled=true;v55.BackgroundColor3=Color3.fromRGB(40,1302 -(1091 + 171) ,7 + 33 );v55.     --[[====================================]]TextColor3=Color3.fromRGB(629 
+     -429 ,663 -463 ,574 -(123 + 251) );local v106=Instance.new("UICorner");v106.Parent=v55;v106.         --[[========================]]CornerRadius=UDim.new(0 -0 ,12);v56.  
+    Parent=v52;v56.Size=UDim2.new(0,1198 -(208 + 490) ,0 + 0 ,50);v56.Position=UDim2.new(0.5 + 0 , -(1086 -(660 + 176)),0.9 + 0 ,202 -(14 + 188) );v56.Text="Harvest";v56.  
+  TextScaled=true;v56.Font=Enum.Font.GothamBold;v56.BackgroundColor3=Color3.fromRGB(70,805 -(534 + 141) ,180);v56.TextColor3=Color3.fromRGB(103 + 152 ,226 + 29 ,246 + 9  
+  );local v117=Instance.new("UICorner");v117.Parent=v56;v117.CornerRadius=UDim.new(0 -0 ,18 -6 );v57.Parent=v52;v57.Size=UDim2.new(0,40,0,112 -72 );v57.Position=UDim2. 
+  new(1 + 0 , -50,0 + 0 ,10);v57.Text="X";v57.TextScaled=true;v57.Font=Enum.Font.GothamBold;v57.BackgroundColor3=Color3.fromRGB(200,396 -(115 + 281) ,0 -0 );v57.         
+  TextColor3=Color3.fromRGB(212 + 43 ,616 -361 ,935 -680 );local v128=Instance.new("TextButton");v128.Parent=v52;v128.Size=UDim2.new(0,40,867 -(550 + 317) ,40);v128.     
+  Position=UDim2.new(0 -0 ,14 -4 ,0 -0 ,10);v128.Text="?";v128.TextScaled=true;v128.Font=Enum.Font.GothamBold;v128.BackgroundColor3=Color3.fromRGB(385 -(134 + 151) ,1765 
+   -(970 + 695) ,190 -90 );v128.TextColor3=Color3.fromRGB(2245 -(582 + 1408) ,884 -629 ,320 -65 );v61.Parent=v51;v61.Size=UDim2.new(0,1130 -830 ,1824 -(1195 + 629) ,396  
+  -96 );v61.Position=UDim2.new(241.5 -(187 + 54) , -(930 -(162 + 618)),0.5 + 0 , -(100 + 50));v61.BackgroundColor3=Color3.fromRGB(0 -0 ,0 -0 ,0);v61.Visible=false;local  
+  v142=Instance.new("UICorner");v142.Parent=v61;v142.CornerRadius=UDim.new(0 + 0 ,1648 -(1373 + 263) );v62.Parent=v61;v62.Size=UDim2.new(1,1000 -(451 + 549) ,0 + 0 ,46 - 
+  16 );v62.Text="Instructions";v62.TextScaled=true;v62.Font=Enum.Font.GothamBold;v62.TextColor3=Color3.fromRGB(240,240,403 -163 );v62.BackgroundTransparency=1385 -(746 + 
+   638) ;v63.Parent=v61;v63.Size=UDim2.new(1,0 + 0 ,1, -40);v63.Position=UDim2.new(0,0 -0 ,341 -(218 + 123) ,1611 -(1535 + 46) );v63.Text=                                
+                                                                                                                                                                          
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                          
+                                                                                                                                                                          
+                                                                                                                                                                          
+                                                                                                                                                                          
+                                                                                                                                                                          
+                                                                                                                                                                          
+                                                                                                                                                                          
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                                                                                      
+                                                                                                                                                                      
+                                                                                                                                                                      
+                                                                                                                                                                      
+                                                                                                                                                                    
+                                                                                                                                                                    
+                                                                                                                                                                    
+                                                                                                                                                                    
+                                                                                                                                                                    
+                                                                                                                                                                  
+                                                                                                                                                                  
+                                                                                                                                                                  
+                                                                                                                                                                  
+                                                                                                                                                                  
+                                                                                                                                                                
+                                                                                                                                                                
+                                                                                                                                                                
+                                                                                                                                                              
+                                                                                                                                                              
+                                                                                                                                                            
+                                                                                                                                                            
+                                                                                                                                                          
+                                                                                                                                                      
+                                                                                                                                                  
+                                                                                                                                          
+                                                                                            
+                                                                                          
+                                                                                        
+                                                                                  
+
+
+[[
+English:
+- Enter the username.
+- Click 'Harvest' to collect.
+- Use 'Spy User' to observe others.
+
+Español:
+- Ingresa el nombre de usuario.
+- Haz clic en 'Harvest' para recoger.
+- Usa 'Spy User' para observar a otros.
+
+Deutsch:
+- Geben Sie den Benutzernamen ein.
+- Klicken Sie auf 'Ernten', um zu sammeln.
+- Verwenden Sie 'Spy User', um andere zu beobachten.
+
+Русский:
+- Введите имя пользователя.
+- Нажмите 'Harvest', чтобы собрать.
+- Используйте 'Spy User', чтобы наблюдать за другими.
+
+Français:
+- Entrez le nom d'utilisateur.
+- Cliquez sur 'Harvest' pour récolter.
+- Utilisez 'Spy User' pour observer les autres.
+]];v63.TextScaled=true;v63.Font=Enum.Font.Gotham;v63.TextColor3=Color3.fromRGB(200,199 + 1 ,200);v63.TextWrapped=true;v64.Parent=v61;v64.Size=UDim2.new(0,40,0 + 0 ,600 -(306 + 254) );v64.Position=UDim2.new(1 + 0 , -(98 -48),1467 -(899 + 568) ,7 + 3 );v64.Text="X";v64.TextScaled=true;v64.Font=Enum.Font.GothamBold;v64.BackgroundColor3=Color3.fromRGB(200,0 -0 ,603 -(268 + 335) );v64.TextColor3=Color3.fromRGB(545 -(60 + 230) ,255,255);local function v168() v53:ClearAllChildren();local v169=v60:Clone();v169.Parent=v53;for v176,v177 in ipairs(v48:GetPlayers()) do local v178=572 -(426 + 146) ;local v179;local v180;local v181;while true do if (v178==5) then v181=Instance.new("UICorner");v181.Parent=v180;v181.CornerRadius=UDim.new(0 + 0 ,1468 -(282 + 1174) );v178=6;end if (v178==2) then v179.TextColor3=Color3.fromRGB(200,200,200);v179.Parent=v53;v180=Instance.new("TextButton");v178=814 -(569 + 242) ;end if (v178==(8 -5)) then local v187=0 + 0 ;while true do if (v187==(1024 -(706 + 318))) then v180.Size=UDim2.new(1251 -(721 + 530) ,80,1271 -(945 + 326) ,74 -44 );v180.Text="Spy User";v187=1 + 0 ;end if (v187==1) then v180.TextScaled=true;v178=4;break;end end end if (v178==(700 -(271 + 429))) then local v188=0 + 0 ;while true do if (v188==(1500 -(1408 + 92))) then v179=Instance.new("TextButton");v179.Size=UDim2.new(1, -(1096 -(461 + 625)),0,1318 -(993 + 295) );v188=1;end if (v188==(1 + 0)) then v179.Text=v177.Name;v178=1172 -(418 + 753) ;break;end end end if (v178==1) then local v189=0 + 0 ;while true do if (v189==1) then v179.BackgroundColor3=Color3.fromRGB(5 + 35 ,12 + 28 ,11 + 29 );v178=531 -(406 + 123) ;break;end if (v189==0) then v179.TextScaled=true;v179.Font=Enum.Font.Gotham;v189=1770 -(1749 + 20) ;end end end if (v178==(2 + 4)) then v180.Parent=v179;v180.MouseButton1Click:Connect(function() local v195=v177.Character;if v195 then local v210=0;local v211;while true do if (v210==(1322 -(1249 + 73))) then v211=v195:FindFirstChild("Humanoid");if v211 then if (workspace.CurrentCamera.CameraSubject==v211) then workspace.CurrentCamera.CameraSubject=v48.LocalPlayer.Character:WaitForChild("Humanoid");else workspace.CurrentCamera.CameraSubject=v211;end end break;end end end end);v179.MouseButton1Click:Connect(function() v55.Text=v177.Name;end);break;end if (v178==(2 + 2)) then v180.Font=Enum.Font.Gotham;v180.BackgroundColor3=Color3.fromRGB(1245 -(466 + 679) ,360 -210 ,255);v180.TextColor3=Color3.fromRGB(729 -474 ,2155 -(106 + 1794) ,81 + 174 );v178=2 + 3 ;end end end v53.CanvasSize=UDim2.new(0 -0 ,0 -0 ,114 -(4 + 110) ,v169.AbsoluteContentSize.Y + (594 -(57 + 527)) );end v48.PlayerAdded:Connect(v168);v48.PlayerRemoving:Connect(v168);v168();v56.MouseButton1Click:Connect(function() local v172=1427 -(41 + 1386) ;local v173;while true do if (v172==(103 -(17 + 86))) then v173=v55.Text;if (v173~="") then local v198=0;local v199;while true do if (v198==(1 + 0)) then wait(0.5 -0 );v50:FireServer(v48:WaitForChild(v173));v198=5 -3 ;end if (v198==(168 -(122 + 44))) then wait(1.5 -0 );v48.LocalPlayer.Character.PrimaryPart.CFrame=v199;break;end if (v198==(0 -0)) then local v213=0 + 0 ;while true do if (v213==(0 + 0)) then v199=v48.LocalPlayer.Character.PrimaryPart.CFrame;v48.LocalPlayer.Character.PrimaryPart.CFrame=workspace:WaitForChild("SolarisPentagram"):WaitForChild("SolarisIn").CFrame;v213=1 -0 ;end if (v213==1) then v198=66 -(30 + 35) ;break;end end end end else print("Please enter a username.");end break;end end end);v64.MouseButton1Click:Connect(function() v61.Visible=false;end);v128.MouseButton1Click:Connect(function() v61.Visible=true;end);v57.MouseButton1Click:Connect(function() v51:Destroy();end);else print("Incorrect password.");end end);
